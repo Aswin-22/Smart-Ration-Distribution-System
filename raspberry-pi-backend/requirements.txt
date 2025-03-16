@@ -1,0 +1,6 @@
+flask
+flask-cors
+serial
+pynmea2
+RPi.GPIO
+hx711
