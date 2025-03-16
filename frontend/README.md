@@ -4,7 +4,7 @@
 
 - Node js
 
-## 📦 Installation
+## 📦 Installation and Usage
 
 Follow these steps to install and run the backend 
 
