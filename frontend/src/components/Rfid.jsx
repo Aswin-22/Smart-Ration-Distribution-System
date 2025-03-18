@@ -48,7 +48,7 @@ function Rfid() {
   return (
     <div className="rfid-container">
       {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form >
         <div className="input-container">
           <label htmlFor="rfid">Rfid</label>
           <input
@@ -80,7 +80,7 @@ function Rfid() {
           />
         </div>
       </form>
-      <button type="submit">Submit</button>
+      <button type="submit" onClick={handleSubmit}>Submit</button>
       <RfidList />
     </div>
   );

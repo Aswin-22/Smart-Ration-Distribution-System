@@ -12,9 +12,8 @@ const rfidSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  timestamp: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now },
 });
-
 
 const Rfid = mongoose.model("rfid", rfidSchema);
 module.exports = Rfid;

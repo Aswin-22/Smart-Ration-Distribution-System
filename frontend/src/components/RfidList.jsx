@@ -30,6 +30,7 @@ function RfidList() {
             <th>RFID</th>
             <th>Name</th>
             <th>Weight (kg)</th>
+            <th>Loaded At</th>
           </tr>
         </thead>
         <tbody>
@@ -38,6 +39,17 @@ function RfidList() {
               <td>{rfid.rfid}</td>
               <td>{rfid.name}</td>
               <td>{rfid.weight} kg</td>
+              <td>
+                {new Date(rfid.createdAt).toLocaleString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit",
+                  hour12: true,
+                })}
+              </td>
             </tr>
           ))}
         </tbody>
