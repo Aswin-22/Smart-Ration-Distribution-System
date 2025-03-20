@@ -1,8 +1,16 @@
+const dotenv = require("dotenv");
+dotenv.config();
+
 const cors = require("cors");
 const express = require("express");
+const cookieParser = require("cookie-parser");
 const http = require("http");
 const { Server } = require("socket.io");
-const mongoose = require("mongoose");
+
+const { connectDb } = require("./config/db");
+const userRouter = require("./routes/user");
+const rfidRouter = require("./routes/rfid");
+const errorMiddleware = require("./middlewares/errorMiddleware");
 
 const app = express();
 const server = http.createServer(app);
@@ -10,19 +18,22 @@ const io = new Server(server, {
   cors: { origin: "*" },
 });
 
-const port = 3000;
-
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 app.use((req, res, next) => {
   req.io = io;
   next();
 });
 
-mongoose
-  .connect("mongodb://127.0.0.1:27017/smart-ration-db")
+connectDb()
   .then(() => {
     console.log("Database Connected");
   })
@@ -30,12 +41,11 @@ mongoose
     console.log("Database Error", err);
   });
 
-const userRouter = require("./routes/user");
-const rfidRouter = require("./routes/rfid");
-
 app.use("/user", userRouter);
 app.use("/rfid", rfidRouter);
 
-server.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+app.use(errorMiddleware);
+
+server.listen(process.env.PORT, () => {
+  console.log(`Server is running at http://localhost:${process.env.PORT}`);
 });

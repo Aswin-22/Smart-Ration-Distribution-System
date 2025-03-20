@@ -12,7 +12,24 @@ const rfidSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  createdAt: { type: Date, default: Date.now },
+  arrivedAt: { type: Date, default: Date.now },
+  loadedAt: { type: Date, default: null },
+  unLoadedAt: { type: Date, default: null },
+  addedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  loadedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    default: null,
+  },
+  unloadedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    default: null,
+  },
 });
 
 const Rfid = mongoose.model("rfid", rfidSchema);

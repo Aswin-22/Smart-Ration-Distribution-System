@@ -114,29 +114,60 @@ td {
   align-items: center;
   gap: 12px;
   margin-top: 24px;
+  padding: 4px 36px 72px 36px;
 }
 
-.rfid-container form {
+.rfid-container h1 {
+  margin-bottom: 24px;
+}
+
+.rfid-sub-container {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 124px;
+}
+
+.rfid-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #282c34;
+  border-radius: 5px;
+  padding: 16px;
+}
+
+.rfid-sub-container h3 {
+  font-size: 22px;
+}
+
+.rfid-sub-container form {
+  display: flex;
+  flex-direction: column;
   gap: 16px;
-  max-width: 480px;
+  max-width: 680px;
+  padding: 24px 56px;
   margin: auto;
 }
 
 .rfid-container input {
   width: 100%;
   padding: 4px;
+  padding-left: 8px;
   margin-bottom: 8px;
-  border-radius: 10px;
+  border-radius: 5px;
   font-size: 16px;
-  text-align: center;
 }
 
 .rfid-container .input-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+}
+
+.rfid-container .input-container label {
+  text-align: left;
+  padding-left: 4px;
 }
 
 .rfid-list-container {
@@ -148,7 +179,13 @@ td {
   margin-top: 24px;
 }
 
-.rfid-container button {
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rfid-container .small-btn {
   padding: 8px 20px;
   background-color: #019863;
   color: white;
@@ -157,6 +194,7 @@ td {
   border: none;
   border-radius: 10px;
   cursor: pointer;
+  width: 120px;
 }
 
 .rfid-container label {
@@ -164,4 +202,70 @@ td {
   font-weight: 500;
   text-align: left;
   display: block;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: #282c34;
+  color: white;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  align-items: center;
+}
+
+.nav-item {
+  color: white;
+  text-decoration: none;
+}
+
+.user-menu {
+  position: relative;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  background: #007bff;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  background: white;
+  color: black;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  width: 120px;
+}
+
+.dropdown-role {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.logout-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 3px;
 }

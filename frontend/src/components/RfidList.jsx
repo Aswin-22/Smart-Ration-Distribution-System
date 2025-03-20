@@ -8,7 +8,12 @@ function RfidList() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/rfid/getAll")
+    // Initial fetch to get all RFIDs
+    fetch("http://localhost:3000/rfid/getAll", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include", // 🔥 Important to send JWT stored in cookies
+    })
       .then((response) => response.json())
       .then((data) => setRfids(data))
       .catch((err) => setError(err.message));
@@ -17,7 +22,28 @@ function RfidList() {
       setRfids((prevRfids) => [...prevRfids, newRfid]);
     });
 
-    return () => socket.off("newRfid");
+    socket.on("updateLoadedAt", (updatedRfid) => {
+      setRfids((prev) =>
+        prev.map((rfid) =>
+          rfid.rfid === updatedRfid.rfid ? updatedRfid : rfid
+        )
+      );
+    });
+  
+    socket.on("updateUnLoadedAt", (updatedRfid) => {
+      setRfids((prev) =>
+        prev.map((rfid) =>
+          rfid.rfid === updatedRfid.rfid ? updatedRfid : rfid
+        )
+      );
+    });
+
+    
+    return () => {
+      socket.off("newRfid");
+      socket.off("updateLoadedAt");
+      socket.off("updateUnLoadedAt");
+    };
   }, []);
 
   return (
@@ -30,7 +56,9 @@ function RfidList() {
             <th>RFID</th>
             <th>Name</th>
             <th>Weight (kg)</th>
+            <th>Arrived At</th>
             <th>Loaded At</th>
+            <th>Unloaded At</th>
           </tr>
         </thead>
         <tbody>
@@ -39,16 +67,10 @@ function RfidList() {
               <td>{rfid.rfid}</td>
               <td>{rfid.name}</td>
               <td>{rfid.weight} kg</td>
+              <td>{formatDate(rfid.arrivedAt)}</td>
+              <td>{rfid.loadedAt ? formatDate(rfid.loadedAt) : "Pending"}</td>
               <td>
-                {new Date(rfid.createdAt).toLocaleString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  second: "2-digit",
-                  hour12: true,
-                })}
+                {rfid.unLoadedAt ? formatDate(rfid.unLoadedAt) : "Pending"}
               </td>
             </tr>
           ))}
@@ -56,6 +78,18 @@ function RfidList() {
       </table>
     </div>
   );
+}
+
+function formatDate(date) {
+  return new Date(date).toLocaleString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  });
 }
 
 export default RfidList;

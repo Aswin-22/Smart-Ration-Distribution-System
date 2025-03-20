@@ -4,3 +4,5 @@ export { default as Login } from "./Login";
 export { default as Rfid } from "./Rfid";
 export { default as Notfound } from "./NotFound";
 export { default as Nav } from "./Nav";
+export { default as Dashboard } from "./Dashboard"
+export {default as ProtectedRoute} from "./ProtectedRoute"

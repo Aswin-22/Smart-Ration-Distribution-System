@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../redux/authAction";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const dispatch = useDispatch();
 
   const handleEmailChange = (event) => {
     event.preventDefault();
@@ -19,34 +21,13 @@ function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError(null);
-    try {
-      const response = await fetch("http://localhost:3000/user/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-        mode: "cors",
-      });
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Login failed");
-      } else {
-        navigate("/");
-      }
-      console.log(data);
-    } catch (err) {
-      setError("Error: " + err);
-      console.log(err);
-    }
+    await dispatch(loginUser(email, password));
+    navigate("/");
   };
 
   return (
     <div className="form-container">
       <h2>Login</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Email</label>
         <input
