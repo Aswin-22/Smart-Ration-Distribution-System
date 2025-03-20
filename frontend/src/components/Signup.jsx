@@ -57,7 +57,12 @@ function Signup() {
           onChange={handlePassChange}
           value={password}
         />
-        <select value={role} onChange={(e) => setRole(e.target.value)}>
+        <label htmlFor="role">Role</label>
+        <select
+          name="role"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+        >
           <option value="LOADER">LOADER</option>
           <option value="UNLOADER">UNLOADER</option>
           <option value="ADMIN">ADMIN</option>
