@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 
 const socket = io("http://localhost:3000");
 
-function RfidList() {
+function RfidList({ user }) {
   const [rfids, setRfids] = useState([]);
   const [error, setError] = useState(null);
 
@@ -29,7 +29,7 @@ function RfidList() {
         )
       );
     });
-  
+
     socket.on("updateUnLoadedAt", (updatedRfid) => {
       setRfids((prev) =>
         prev.map((rfid) =>
@@ -38,7 +38,6 @@ function RfidList() {
       );
     });
 
-    
     return () => {
       socket.off("newRfid");
       socket.off("updateLoadedAt");
@@ -56,9 +55,9 @@ function RfidList() {
             <th>RFID</th>
             <th>Name</th>
             <th>Weight (kg)</th>
-            <th>Arrived At</th>
-            <th>Loaded At</th>
-            <th>Unloaded At</th>
+            {(user == "LOADER"|| user == "ADMIN") && (<th>Arrived At</th>)}
+            {(user == "LOADER"|| user == "ADMIN") && (<th>Loaded At</th>)}
+            {(user == "UNLOADER"|| user == "ADMIN") && (<th>Unloaded At</th>)}
           </tr>
         </thead>
         <tbody>
@@ -67,11 +66,17 @@ function RfidList() {
               <td>{rfid.rfid}</td>
               <td>{rfid.name}</td>
               <td>{rfid.weight} kg</td>
-              <td>{formatDate(rfid.arrivedAt)}</td>
-              <td>{rfid.loadedAt ? formatDate(rfid.loadedAt) : "Pending"}</td>
-              <td>
-                {rfid.unLoadedAt ? formatDate(rfid.unLoadedAt) : "Pending"}
-              </td>
+              {(user == "LOADER" || user == "ADMIN" ) && (
+                <td>{formatDate(rfid.arrivedAt)}</td>
+              )}
+              {(user == "LOADER"|| user == "ADMIN") && (
+                <td>{rfid.loadedAt ? formatDate(rfid.loadedAt) : "Pending"}</td>
+              )}
+              {(user == "UNLOADER"|| user == "ADMIN") && (
+                <td>
+                  {rfid.unLoadedAt ? formatDate(rfid.unLoadedAt) : "Pending"}
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

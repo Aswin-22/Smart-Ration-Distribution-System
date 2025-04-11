@@ -10,6 +10,7 @@ const { Server } = require("socket.io");
 const { connectDb } = require("./config/db");
 const userRouter = require("./routes/user");
 const rfidRouter = require("./routes/rfid");
+const truckRoutes = require("./routes/truckRoutes");
 const errorMiddleware = require("./middlewares/errorMiddleware");
 
 const app = express();
@@ -43,9 +44,10 @@ connectDb()
 
 app.use("/user", userRouter);
 app.use("/rfid", rfidRouter);
+app.use("/api/truck", truckRoutes);
 
 app.use(errorMiddleware);
 
-server.listen(process.env.PORT, () => {
-  console.log(`Server is running at http://localhost:${process.env.PORT}`);
+server.listen(process.env.PORT, "0.0.0.0", () => {
+  console.log(`Server is running at ${process.env.PORT}`);
 });

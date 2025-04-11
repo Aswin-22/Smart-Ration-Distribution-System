@@ -37,6 +37,9 @@ function Rfid() {
       });
       const data = await response.json();
       console.log(data);
+      setRfid("");
+      setName("");
+      setWeight("");
       if (!response.ok) {
         throw new Error(data.message || "RFID data not added");
       }
@@ -63,6 +66,7 @@ function Rfid() {
         throw new Error("Invalid response format. Expected JSON.");
       }
       const data = await response.json();
+      setSearchRfid("");
       if (!response.ok)
         throw new Error(data.message || "Failed to update loaded time");
       console.log("Loaded Time Updated:", data);
@@ -85,6 +89,7 @@ function Rfid() {
         }
       );
       const data = await response.json();
+      setSearchRfid("");
       if (!response.ok)
         throw new Error(data.message || "Failed to update unloaded time");
       console.log("Unloaded Time Updated:", data);
@@ -183,7 +188,7 @@ function Rfid() {
           </div>
         )}
       </div>
-      <RfidList />
+      <RfidList user={userRole}/>
     </div>
   );
 }

@@ -16,7 +16,7 @@ function Nav() {
   return (
     <nav className="nav-container">
       <Link to="/" className="nav-item logo">
-        <h3>Logo</h3>
+        <span>SRDSS</span>
       </Link>
       <ul className="nav-links">
         {!isAuthenticated ? (
@@ -37,11 +37,11 @@ function Nav() {
             {user.role === "ADMIN" && (
               <li>
                 <Link to="/dashboard" className="nav-item">
-                  Dashboard
+                  Truck Status
                 </Link>
               </li>
             )}
-            {isAuthenticated && user.role !== "ADMIN" && (
+            {isAuthenticated && (
               <li>
                 <Link to="/rfid" className="nav-item">
                   Manage RFID
