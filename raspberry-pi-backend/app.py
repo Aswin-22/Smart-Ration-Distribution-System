@@ -55,7 +55,7 @@ if __name__ == '__main__':
 # run ipconfig in cmd to get the ip address of your computer
 # ip address will be in the format 192.168.x.x
 # url = 'http://192.168.x.x:3000/api/update-location'
-# data = {'key': 'value'}
+# data = {truckID: "Sameasindatabase", currentLocation: {"latitude": 0, "longitude": 0}, weight: 0}
 # response = requests.put(url, json=data)
 # print(response.text)
 
