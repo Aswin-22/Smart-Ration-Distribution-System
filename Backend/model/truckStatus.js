@@ -5,7 +5,15 @@ const truckStatusSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  location: {
+  driverName: {
+    type: String,
+    required: true,
+  },
+  driverNumber: {
+    type: String,
+    required: true,
+  },
+  startLocation: {
     latitude: {
       type: Number,
       required: true,
@@ -15,9 +23,26 @@ const truckStatusSchema = new mongoose.Schema({
       required: true,
     },
   },
+  endLocation: {
+    latitude: {
+      type: Number,
+      required: true,
+    },
+    longitude: {
+      type: Number,
+      required: true,
+    },
+  },
+  currentLocation: {
+    latitude: {
+      type: Number,
+    },
+    longitude: {
+      type: Number,
+    },
+  },
   weight: {
     type: Number,
-    required: true,
   },
   timestamp: {
     type: Date,

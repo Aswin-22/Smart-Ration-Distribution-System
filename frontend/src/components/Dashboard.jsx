@@ -3,7 +3,7 @@ import TruckTable from "./TruckTable";
 
 function Dashboard() {
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       <h2>Admin Dashboard </h2>
       <TruckTable />
     </div>

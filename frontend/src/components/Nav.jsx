@@ -41,6 +41,13 @@ function Nav() {
                 </Link>
               </li>
             )}
+            {user.role === "LOADER" && (
+              <li>
+                <Link to="/register-truck" className="nav-item">
+                  Register Truck 
+                </Link>
+              </li>
+            )}
             {isAuthenticated && (
               <li>
                 <Link to="/rfid" className="nav-item">

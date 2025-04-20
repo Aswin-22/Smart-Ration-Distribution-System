@@ -11,6 +11,7 @@ import {
   Nav,
   ProtectedRoute,
   Dashboard,
+  RegisterTruck,
 } from "./components";
 
 function App() {
@@ -38,6 +39,9 @@ function App() {
           }
         >
           <Route path="/rfid" element={<Rfid />} />
+        </Route>
+        <Route element={<ProtectedRoute allowedRoles={["LOADER"]} />}>
+          <Route path="/register-truck" element={<RegisterTruck />} />
         </Route>
         <Route element={<ProtectedRoute allowedRoles={["ADMIN"]} />}>
           <Route path="/dashboard" element={<Dashboard />} />
